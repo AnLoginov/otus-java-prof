@@ -33,11 +33,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", scores=" + scores +
-                '}';
+        return "Customer{" + "id=" + id + ", name='" + name + '\'' + ", scores=" + scores + '}';
     }
 
     @Override
@@ -52,6 +48,6 @@ public class Customer {
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return Long.hashCode(id);
     }
 }

@@ -3,10 +3,10 @@ package homework;
 import java.util.*;
 
 public class CustomerReverseOrder {
-    private final LinkedHashSet<Customer> customers;
+    private final Deque<Customer> customers;
 
     public CustomerReverseOrder() {
-        this.customers = new LinkedHashSet<>();
+        this.customers = new ArrayDeque<>();
     }
 
     public void add(Customer customer) {
