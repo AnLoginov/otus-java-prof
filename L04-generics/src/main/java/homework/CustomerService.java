@@ -1,21 +1,34 @@
 package homework;
 
-import java.util.Map;
+import java.util.*;
 
-@SuppressWarnings({"java:S1186", "java:S1135", "java:S1172"}) // при выполнении ДЗ эту аннотацию надо удалить
 public class CustomerService {
+    private final NavigableMap<Customer, String> items;
 
-    // todo: 3. надо реализовать методы этого класса
-    // важно подобрать подходящую Map-у, посмотрите на редко используемые методы, они тут полезны
+    public CustomerService() {
+        this.items = new TreeMap<>(Comparator.comparingLong(Customer::getScores));
+    }
 
     public Map.Entry<Customer, String> getSmallest() {
-        // Возможно, чтобы реализовать этот метод, потребуется посмотреть как Map.Entry сделан в jdk
-        return null; // это "заглушка, чтобы скомилировать"
+        Map.Entry<Customer, String> smallest = items.firstEntry();
+        return smallest == null ? null : getDeepCopy(smallest);
     }
 
     public Map.Entry<Customer, String> getNext(Customer customer) {
-        return null; // это "заглушка, чтобы скомилировать"
+        Map.Entry<Customer, String> next = items.higherEntry(customer);
+        return next == null ? null : getDeepCopy(next);
     }
 
-    public void add(Customer customer, String data) {}
+    public void add(Customer customer, String data) {
+        items.put(customer, data);
+    }
+
+    private Map.Entry<Customer, String> getDeepCopy(Map.Entry<Customer, String> value) {
+        return Map.entry(
+                new Customer(
+                        value.getKey().getId(),
+                        value.getKey().getName(),
+                        value.getKey().getScores()),
+                value.getValue());
+    }
 }
